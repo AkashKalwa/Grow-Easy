@@ -1056,14 +1056,15 @@ export default function GrowEasyApp() {
 
               {/* Table */}
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-                <div className={`overflow-x-auto max-h-[500px] ${selectedLead ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
+                <div className={`overflow-x-auto max-h-[500px] scroll-hint ${selectedLead ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
                   <table className="w-full text-left text-xs border-collapse">
-                    <thead className="sticky top-0 bg-slate-50/50 dark:bg-[#25252b] text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800/40 z-10 select-none">
+                    <thead className="sticky top-0 bg-white dark:bg-[#25252b] text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800/40 z-10 select-none">
                       <tr>
                         <th className="px-4 py-3 font-bold uppercase tracking-wider">Created</th>
                         <th className="px-4 py-3 font-bold uppercase tracking-wider">Lead Name</th>
                         <th className="px-4 py-3 font-bold uppercase tracking-wider">Email</th>
                         <th className="px-4 py-3 font-bold uppercase tracking-wider">Company</th>
+                        <th className="px-4 py-3 font-bold uppercase tracking-wider">Status</th>
                         <th className="px-4 py-3 font-bold uppercase tracking-wider">Contact</th>
                         <th className="px-4 py-3 font-bold uppercase tracking-wider">City</th>
                         <th className="px-4 py-3 font-bold uppercase tracking-wider">State</th>
@@ -1071,7 +1072,6 @@ export default function GrowEasyApp() {
                         <th className="px-4 py-3 font-bold uppercase tracking-wider">Owner</th>
                         <th className="px-4 py-3 font-bold uppercase tracking-wider">Source</th>
                         <th className="px-4 py-3 font-bold uppercase tracking-wider">Possession</th>
-                        <th className="px-4 py-3 font-bold uppercase tracking-wider">Status</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100/50 dark:divide-slate-850/10">
@@ -1092,13 +1092,6 @@ export default function GrowEasyApp() {
                             <td className="px-4 py-3 font-black text-slate-800 dark:text-white">{lead.name}</td>
                             <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{lead.email || '-'}</td>
                             <td className="px-4 py-3 text-slate-600 dark:text-slate-400 truncate max-w-[220px]">{lead.company || '-'}</td>
-                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400 font-mono text-[11px]">{lead.country_code} {lead.mobile_without_country_code || '-'}</td>
-                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{lead.city || '-'}</td>
-                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{lead.state || '-'}</td>
-                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{lead.country || '-'}</td>
-                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{lead.lead_owner || '-'}</td>
-                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{lead.data_source || '-'}</td>
-                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{lead.possession_time || '-'}</td>
                             <td className="px-4 py-3">
                               {lead.crm_status ? (
                                 <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-wider ${
@@ -1113,6 +1106,13 @@ export default function GrowEasyApp() {
                                 <span className="text-slate-400">-</span>
                               )}
                             </td>
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400 font-mono text-[11px]">{lead.country_code} {lead.mobile_without_country_code || '-'}</td>
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{lead.city || '-'}</td>
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{lead.state || '-'}</td>
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{lead.country || '-'}</td>
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{lead.lead_owner || '-'}</td>
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{lead.data_source || '-'}</td>
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{lead.possession_time || '-'}</td>
                           </tr>
                         ))
                       )}

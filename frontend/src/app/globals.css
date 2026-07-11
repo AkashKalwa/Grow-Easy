@@ -113,3 +113,19 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   to   { transform: rotate(360deg); }
 }
 .animate-spin-slow { animation: spin-slow 8s linear infinite; }
+
+/* Scroll hint for wide tables: orange draggable scrollbar/thumb */
+.scroll-hint {
+  scrollbar-color: #ef5a3f transparent; /* Firefox */
+  scrollbar-width: thin;
+}
+.scroll-hint::-webkit-scrollbar {
+  height: 8px;
+}
+.scroll-hint::-webkit-scrollbar-thumb {
+  background: #ef5a3f;
+  border-radius: 9999px;
+}
+.scroll-hint::-webkit-scrollbar-track {
+  background: transparent;
+}

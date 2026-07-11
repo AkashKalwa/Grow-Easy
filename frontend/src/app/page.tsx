@@ -1060,16 +1060,17 @@ export default function GrowEasyApp() {
                   <table className="w-full text-left text-xs border-collapse">
                     <thead className="sticky top-0 bg-slate-50/50 dark:bg-[#25252b] text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800/40 z-10 select-none">
                       <tr>
-                        <th className="px-4 py-3 font-bold uppercase tracking-wider">Lead Name</th>
-                        <th className="px-4 py-3 font-bold uppercase tracking-wider">Email</th>
-                        <th className="px-4 py-3 font-bold uppercase tracking-wider">Contact</th>
-                        <th className="px-4 py-3 font-bold uppercase tracking-wider">Status</th>
-                      </tr>
+                          <th className="px-4 py-3 font-bold uppercase tracking-wider">Lead Name</th>
+                          <th className="px-4 py-3 font-bold uppercase tracking-wider">Email</th>
+                          <th className="px-4 py-3 font-bold uppercase tracking-wider">Company</th>
+                          <th className="px-4 py-3 font-bold uppercase tracking-wider">Contact</th>
+                          <th className="px-4 py-3 font-bold uppercase tracking-wider">Status</th>
+                        </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100/50 dark:divide-slate-850/10">
                       {filteredLeads.length === 0 ? (
                         <tr>
-                          <td colSpan={4} className="text-center py-12 text-slate-400 dark:text-slate-600 font-medium">
+                          <td colSpan={5} className="text-center py-12 text-slate-400 dark:text-slate-600 font-medium">
                             No leads matching selection.
                           </td>
                         </tr>
@@ -1085,6 +1086,9 @@ export default function GrowEasyApp() {
                             </td>
                             <td className="px-4 py-3 text-slate-600 dark:text-slate-400">
                               {lead.email || '-'}
+                            </td>
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400 truncate max-w-[220px]">
+                              {lead.company || '-'}
                             </td>
                             <td className="px-4 py-3 text-slate-600 dark:text-slate-400 font-mono text-[11px]">
                               {lead.country_code} {lead.mobile_without_country_code || '-'}

@@ -1056,21 +1056,28 @@ export default function GrowEasyApp() {
 
               {/* Table */}
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-                <div className="lg:col-span-2 overflow-x-auto max-h-[500px]">
+                <div className={`overflow-x-auto max-h-[500px] ${selectedLead ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
                   <table className="w-full text-left text-xs border-collapse">
                     <thead className="sticky top-0 bg-slate-50/50 dark:bg-[#25252b] text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800/40 z-10 select-none">
                       <tr>
-                          <th className="px-4 py-3 font-bold uppercase tracking-wider">Lead Name</th>
-                          <th className="px-4 py-3 font-bold uppercase tracking-wider">Email</th>
-                          <th className="px-4 py-3 font-bold uppercase tracking-wider">Company</th>
-                          <th className="px-4 py-3 font-bold uppercase tracking-wider">Contact</th>
-                          <th className="px-4 py-3 font-bold uppercase tracking-wider">Status</th>
-                        </tr>
+                        <th className="px-4 py-3 font-bold uppercase tracking-wider">Created</th>
+                        <th className="px-4 py-3 font-bold uppercase tracking-wider">Lead Name</th>
+                        <th className="px-4 py-3 font-bold uppercase tracking-wider">Email</th>
+                        <th className="px-4 py-3 font-bold uppercase tracking-wider">Company</th>
+                        <th className="px-4 py-3 font-bold uppercase tracking-wider">Contact</th>
+                        <th className="px-4 py-3 font-bold uppercase tracking-wider">City</th>
+                        <th className="px-4 py-3 font-bold uppercase tracking-wider">State</th>
+                        <th className="px-4 py-3 font-bold uppercase tracking-wider">Country</th>
+                        <th className="px-4 py-3 font-bold uppercase tracking-wider">Owner</th>
+                        <th className="px-4 py-3 font-bold uppercase tracking-wider">Source</th>
+                        <th className="px-4 py-3 font-bold uppercase tracking-wider">Possession</th>
+                        <th className="px-4 py-3 font-bold uppercase tracking-wider">Status</th>
+                      </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100/50 dark:divide-slate-850/10">
                       {filteredLeads.length === 0 ? (
                         <tr>
-                          <td colSpan={5} className="text-center py-12 text-slate-400 dark:text-slate-600 font-medium">
+                          <td colSpan={12} className="text-center py-12 text-slate-400 dark:text-slate-600 font-medium">
                             No leads matching selection.
                           </td>
                         </tr>
@@ -1081,18 +1088,17 @@ export default function GrowEasyApp() {
                             onClick={() => setSelectedLead(lead)}
                             className={`hover:bg-slate-50/50 dark:hover:bg-[#28282f]/30 transition-colors cursor-pointer ${selectedLead === lead ? 'bg-[#ef5a3f]/5 dark:bg-[#ef5a3f]/10' : ''}`}
                           >
-                            <td className="px-4 py-3 font-black text-slate-800 dark:text-white">
-                              {lead.name}
-                            </td>
-                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400">
-                              {lead.email || '-'}
-                            </td>
-                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400 truncate max-w-[220px]">
-                              {lead.company || '-'}
-                            </td>
-                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400 font-mono text-[11px]">
-                              {lead.country_code} {lead.mobile_without_country_code || '-'}
-                            </td>
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400 font-mono">{new Date(lead.created_at).toLocaleString()}</td>
+                            <td className="px-4 py-3 font-black text-slate-800 dark:text-white">{lead.name}</td>
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{lead.email || '-'}</td>
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400 truncate max-w-[220px]">{lead.company || '-'}</td>
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400 font-mono text-[11px]">{lead.country_code} {lead.mobile_without_country_code || '-'}</td>
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{lead.city || '-'}</td>
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{lead.state || '-'}</td>
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{lead.country || '-'}</td>
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{lead.lead_owner || '-'}</td>
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{lead.data_source || '-'}</td>
+                            <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{lead.possession_time || '-'}</td>
                             <td className="px-4 py-3">
                               {lead.crm_status ? (
                                 <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-wider ${
@@ -1114,18 +1120,23 @@ export default function GrowEasyApp() {
                   </table>
                 </div>
 
-                {/* Lead Details Drawer Panel */}
-                <div className="bg-[#f5f5f0] dark:bg-[#28282f]/40 rounded-2xl p-5 space-y-4 text-xs font-semibold">
-                  {selectedLead ? (
-                    <div className="space-y-4">
-                      <div className="pb-3 border-b border-slate-200/50 dark:border-slate-800/40">
-                        <h4 className="font-black text-sm text-slate-800 dark:text-white flex items-center gap-1.5">
-                          <User className="w-4 h-4 text-[#ef5a3f]" />
-                          {selectedLead.name}
-                        </h4>
-                        <span className="text-[9px] text-slate-400 font-mono block mt-1">Source: {selectedLead.data_source || 'Manual'}</span>
+                {/* Lead Details Drawer Panel (appears only when a row is selected) */}
+                {selectedLead && (
+                  <div className="lg:col-span-1">
+                    <div className="bg-[#f5f5f0] dark:bg-[#28282f]/40 rounded-2xl p-5 space-y-4 text-xs font-semibold">
+                      <div className="flex justify-between items-start pb-3 border-b border-slate-200/50 dark:border-slate-800/40">
+                        <div>
+                          <h4 className="font-black text-sm text-slate-800 dark:text-white flex items-center gap-1.5">
+                            <User className="w-4 h-4 text-[#ef5a3f]" />
+                            {selectedLead.name}
+                          </h4>
+                          <span className="text-[9px] text-slate-400 font-mono block mt-1">Source: {selectedLead.data_source || 'Manual'}</span>
+                        </div>
+                        <button onClick={() => setSelectedLead(null)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                          <X className="w-5 h-5" />
+                        </button>
                       </div>
-                      
+
                       <div className="space-y-2.5">
                         <div className="flex gap-2">
                           <span className="w-20 text-slate-400 shrink-0 uppercase tracking-wider text-[9px] font-black">Email:</span>
@@ -1152,13 +1163,8 @@ export default function GrowEasyApp() {
                         </p>
                       </div>
                     </div>
-                  ) : (
-                    <div className="text-center py-16 text-slate-400 dark:text-slate-500 select-none">
-                      <HelpCircle className="w-8 h-8 mx-auto mb-2 opacity-50 stroke-1" />
-                      Select a lead row to view profile details.
-                    </div>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
             </div>
           )}

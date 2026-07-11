@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/*
+  CRITICAL: Tell Tailwind v4 to use class-based dark mode.
+  Without this, dark: variants only respond to (prefers-color-scheme: dark)
+  media query — ignoring the .dark class added by ThemeToggle.
+*/
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: #ef5a3f;
+  --color-primary-hover: #d94f35;
+  --color-brand-orange: #ef5a3f;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Space Grotesk", sans-serif;
+
+  /* ─── Scale ALL Tailwind text-* utilities up by ~25% ─────────────────
+     Default rem base is 16px. We leave html font-size at 16px (so layout
+     rem values like w-64, p-6 are unchanged) but override the text scale. */
+  --text-xs:   0.9375rem;    /* 15px  (was 12px)  */
+  --text-sm:   1.09375rem;   /* 17.5px (was 14px) */
+  --text-base: 1.25rem;      /* 20px  (was 16px)  */
+  --text-lg:   1.40625rem;   /* 22.5px (was 18px) */
+  --text-xl:   1.5625rem;    /* 25px  (was 20px)  */
+  --text-2xl:  1.875rem;     /* 30px  (was 24px)  */
+  --text-3xl:  2.34375rem;   /* 37.5px (was 30px) */
+  --text-4xl:  2.8125rem;    /* 45px  (was 36px)  */
+}
+
+/* ─── Light Theme (bone-white) ─────────────────────────────────────────── */
+:root {
+  --background:    #f5f5f0;
+  --foreground:    #1c1917;
+  --card-bg:       #ffffff;
+  --border-color:  #e4e4e7;
+  --sidebar-bg:    #eaeae2;
+  --input-bg:      #ffffff;
+  --muted:         #78716c;
+}
+
+/* ─── Dark Theme (charcoal grey) ─────────────────────────────────────────  */
+.dark {
+  --background:    #141416;
+  --foreground:    #f4f4f5;
+  --card-bg:       #1e1e24;
+  --border-color:  #2c2c35;
+  --sidebar-bg:    #09090b; /* Distinctly darker black/charcoal left nav */
+  --input-bg:      #0d0d0f;
+  --muted:         #71717a;
+}
+
+/* ─── Base styles ─────────────────────────────────────────────────────── */
+html {
+  font-size: 16px; /* Keep at 16px so layout rem values (w-64, p-6 etc.) don't bloat */
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* ─── Headings — Space Grotesk at weight 500 (no bold) ──────────────── */
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+/* ─── Scale hardcoded px text sizes by ×1.25 ────────────────────────── */
+/* These are used as Tailwind arbitrary-value classes e.g. text-[10px]  */
+.text-\[8px\]  { font-size: 10px !important; }
+.text-\[9px\]  { font-size: 11px !important; }
+.text-\[10px\] { font-size: 13px !important; }
+.text-\[11px\] { font-size: 14px !important; }
+.text-\[12px\] { font-size: 15px !important; }
+
+.no-outline-card {
+  background-color: var(--card-bg);
+  box-shadow:
+    0 0 0 1px rgba(239, 90, 63, 0.05),
+    0 4px 16px -4px rgba(0, 0, 0, 0.07),
+    0 8px 32px -8px rgba(239, 90, 63, 0.10),
+    0 20px 48px -16px rgba(239, 90, 63, 0.07);
+  transition: box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.no-outline-card:hover {
+  box-shadow:
+    0 0 0 1px rgba(239, 90, 63, 0.09),
+    0 4px 16px -4px rgba(0, 0, 0, 0.08),
+    0 12px 36px -8px rgba(239, 90, 63, 0.16),
+    0 24px 56px -16px rgba(239, 90, 63, 0.11);
+  transform: translateY(-1.5px);
+}
+
+.dark .no-outline-card {
+  box-shadow:
+    0 0 0 1px rgba(239, 90, 63, 0.07),
+    0 8px 24px -4px rgba(0, 0, 0, 0.45),
+    0 16px 48px -12px rgba(239, 90, 63, 0.22),
+    0 32px 64px -24px rgba(239, 90, 63, 0.14);
+}
+
+.dark .no-outline-card:hover {
+  box-shadow:
+    0 0 0 1px rgba(239, 90, 63, 0.12),
+    0 8px 24px -4px rgba(0, 0, 0, 0.55),
+    0 20px 52px -12px rgba(239, 90, 63, 0.28),
+    0 36px 72px -24px rgba(239, 90, 63, 0.18);
+  transform: translateY(-2px);
+}
+
+/* ─── Scrollbars ─────────────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 5px; height: 5px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: #cbd5e1; border-radius: 9999px; }
+.dark ::-webkit-scrollbar-thumb { background: #2e2e36; }
+::-webkit-scrollbar-thumb:hover  { background: #94a3b8; }
+
+/* ─── Animations ─────────────────────────────────────────────────────── */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80%      { transform: translateX(4px); }
+}
+.animate-shake { animation: shake 0.5s ease-in-out; }
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-spin-slow { animation: spin-slow 8s linear infinite; }
